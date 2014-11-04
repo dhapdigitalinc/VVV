@@ -93,6 +93,8 @@ apt_package_check_list=(
 	# nodejs for use by grunt
 	g++
 	nodejs
+
+	elasticsearch
 )
 
 echo "Check for apt packages to install..."
@@ -150,6 +152,9 @@ if [[ $ping_result == *bytes?from* ]]; then
 		# Launchpad nodejs key C7917B12
 		gpg -q --keyserver keyserver.ubuntu.com --recv-key C7917B12
 		gpg -q -a --export  C7917B12  | apt-key add -
+
+		# Elasticsearch
+		wget -qO - http://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add -
 
 		# update all of the package references before installing anything
 		echo "Running apt-get update..."

@@ -8,3 +8,6 @@ deb-src http://nginx.org/packages/mainline/ubuntu/ trusty nginx
 # Provides Node.js
 deb http://ppa.launchpad.net/chris-lea/node.js/ubuntu trusty main
 deb-src http://ppa.launchpad.net/chris-lea/node.js/ubuntu trusty main
+
+# Provides Elasticsearch
+deb http://packages.elasticsearch.org/elasticsearch/1.3/debian stable main
