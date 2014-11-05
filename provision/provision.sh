@@ -94,6 +94,8 @@ apt_package_check_list=(
 	g++
 	nodejs
 
+        # Elasticsearch
+        openjdk-7-jre-headless
 	elasticsearch
 )
 
