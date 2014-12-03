@@ -11,10 +11,15 @@ Vagrant.configure("2") do |config|
   vagrant_version = Vagrant::VERSION.sub(/^v/, '')
 
   # Configurations from 1.0.x can be placed in Vagrant 1.1.x specs like the following.
-  config.vm.provider :virtualbox do |v|
-    v.customize ["modifyvm", :id, "--memory", 1024]
-    v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
-    v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+  # config.vm.provider :virtualbox do |v|
+  #   v.customize ["modifyvm", :id, "--memory", 1024]
+  #   v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+  #   v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+  # end
+
+  config.vm.provider "parallels" do |v|
+    v.update_guest_tools = true
+    v.memory = 1024
   end
 
   # Forward Agent
@@ -28,7 +33,8 @@ Vagrant.configure("2") do |config|
   # This box is provided by Ubuntu vagrantcloud.com and is a nicely sized (332MB)
   # box containing the Ubuntu 14.04 Trusty 64 bit release. Once this box is downloaded
   # to your host computer, it is cached for future use under the specified box name.
-  config.vm.box = "ubuntu/trusty64"
+  #config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "puphpet/ubuntu1404-x64"
 
   config.vm.hostname = "vvv"
 
@@ -80,7 +86,7 @@ Vagrant.configure("2") do |config|
   # If you are already on a network using the 192.168.50.x subnet, this should be changed.
   # If you are running more than one VM through VirtualBox, different subnets should be used
   # for those as well. This includes other Vagrant boxes.
-  config.vm.network :private_network, ip: "192.168.50.4"
+  config.vm.network :private_network, ip: "192.168.23.5"
 
   # Drive mapping
   #
@@ -132,11 +138,12 @@ Vagrant.configure("2") do |config|
   # If a www directory exists in the same directory as your Vagrantfile, a mapped directory
   # inside the VM will be created that acts as the default location for nginx sites. Put all
   # of your project files here that you want to access through the web server
-  if vagrant_version >= "1.3.0"
-    config.vm.synced_folder "www/", "/srv/www/", :owner => "www-data", :mount_options => [ "dmode=775", "fmode=774" ]
-  else
-    config.vm.synced_folder "www/", "/srv/www/", :owner => "www-data", :extra => 'dmode=775,fmode=774'
-  end
+  # if vagrant_version >= "1.3.0"
+  #   config.vm.synced_folder "www/", "/srv/www/", :owner => "www-data", :mount_options => [ "dmode=775", "fmode=774" ]
+  # else
+  #   config.vm.synced_folder "www/", "/srv/www/", :owner => "www-data", :extra => 'dmode=775,fmode=774'
+  # end
+  config.vm.synced_folder "www/", "/srv/www/", type: 'nfs'
 
   # Customfile - POSSIBLY UNSTABLE
   #
