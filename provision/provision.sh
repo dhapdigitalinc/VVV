@@ -97,6 +97,14 @@ apt_package_check_list=(
         # Elasticsearch
         openjdk-7-jre-headless
 	elasticsearch
+
+        # Dev tools
+        emacs
+        screen
+        most
+        tree
+        htop
+
 )
 
 echo "Check for apt packages to install..."
